@@ -4,7 +4,7 @@ This repository contains the official code release of **CCPoint: Contrasting Cor
 ## Introduction
 In this work, we propose a novel SSL paradigm for point cloud representation learning, called CCPoint, which incorporates a novel form of data corruption as a negative augmentation strategy.
 
-<img src="./figure/CCPoint.png" align="center" width="95%">
+<img src="./figure/CCPoint.png" align="center" width="100%">
 
 
 ## 1. Installation
