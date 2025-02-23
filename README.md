@@ -96,4 +96,4 @@ If you entrust our work with value, please consider giving a star ⭐ and citati
 Our code borrows heavily from [CrossPoint](https://github.com/MohamedAfham/CrossPoint) repository. We thank the authors of CrossPoint for releasing their code.
 
 ## 7. License
-This repository is released under MIT License (see LICENSE file for details).
+This repository is released under MIT License.
