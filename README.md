@@ -86,14 +86,14 @@ Run the following command to test the DGCNN model in a zero-shot learning scenar
 CUDA_VISIBLE_DEVICES=0 python test.py
 ```
 
-## 5. Citation
+## Citation
 If you entrust our work with value, please consider giving a star ⭐ and citation:
 ```
 @article{}
 ```
 
-## 6. Acknowledgements
+## Acknowledgements
 Our code borrows heavily from [CrossPoint](https://github.com/MohamedAfham/CrossPoint) repository. We thank the authors of CrossPoint for releasing their code.
 
-## 7. License
+## License
 This repository is released under MIT License.
