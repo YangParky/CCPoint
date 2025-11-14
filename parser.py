@@ -2,7 +2,7 @@ import argparse
 
 # Training settings
 parser = argparse.ArgumentParser(description='Point Cloud Recognition')
-parser.add_argument('--exp', type=str, default='exp', metavar='N',
+parser.add_argument('--exp', type=str, default='tab9', metavar='N',
                     help='Name of the experiment')
 parser.add_argument('--model', type=str, default='dgcnn_cls', metavar='N',
                     choices=['dgcnn_cls', 'dgcnn_part', 'dgcnn_sem', 'pointnet_cls', 'pointnet_part', 'moco_dgcnn_cls'],

@@ -363,413 +363,360 @@ def corrupt_cutout(pointcloud, level=4):
 
     return torch.from_numpy(pointcloud_clone).float()
 
-data_path = '/mnt/sda/xxy/Dataset/Shapenet/ShapeNet55-34/shapenet_pc/'
-file_path = '/mnt/sda/xxy/Project/CCPoint/output/visualization/'
 
-# file_names = os.listdir(data_path)
-# # file_names = random.choices(file_names, k=20)
-#
-# # 筛选出文件名包含 '02691156' 的文件
-# filtered_file_names = [file_name for file_name in file_names if '02691156' in file_name]
-# # 从筛选出的文件中随机选择20个
-# file_names = random.sample(filtered_file_names, min(20, len(filtered_file_names)))
-#
-# for name in file_names:
-#     # file_name = '02691156-1a32f10b20170883663e90eaf6b4ca52'
-#     file_name = name
-#
-#     sam = data_path + file_name
-#
-#     input = torch.from_numpy(np.load(sam))[:, :3]
-#     input = _pc_normalize(input).unsqueeze(0)  # 8192 * 3
-#     input_vanilla = global_transform(input, 32)  ## good pose for visualization
-#
-#     # no corruption.
-#     idx = farthest_point_sample(input_vanilla, 2048)  # input BNC
-#     points = index_points(input_vanilla, idx)[0]  # [B, S, C]
-#     d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-#     cloud = PyntCloud(pd.DataFrame(data=d))
-#     save_name = 'nocorruption-' + file_name.replace('.npy', '')
-#     save_name = file_path + 'corruption/' + save_name + '.ply'
-#     cloud.to_file(save_name)
-#     print('visual no corruption successfully. Points shape: %s' % (str(points.cpu().numpy().shape),))
+data_path = '../../Dataset/Shapenet/ShapeNet55-34/shapenet_pc/'
+file_path = './output/visualization/'
 
-    # # corrupt_reflection
-    # input = np.array(input_vanilla.squeeze(0))
-    # input = corrupt_reflection(input, 3)
-    # points = random_sample(input, 1024)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'reflection-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual reflection successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_rotation
-    # input = np.array(input_vanilla.squeeze(0))
-    # input = corrupt_rotate(input, 3)
-    # points = random_sample(input, 1024)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'rotation-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual rotation successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_scale
-    # input = np.array(input_vanilla.squeeze(0))
-    # input = corrupt_scale(input, 3)
-    # points = random_sample(input, 1024)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'scale-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual scale successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_shear
-    # input = np.array(input_vanilla.squeeze(0))
-    # input = corrupt_shear(input, 3)
-    # points = random_sample(input, 1024)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'shear-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual shear successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_translate
-    # input = np.array(input_vanilla.squeeze(0))
-    # input = corrupt_tranlate(input, 3)
-    # points = random_sample(input, 1024)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'translate-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual translate successfully. Points shape: %s' % (str(points.shape),))
+file_names = os.listdir(data_path)
+file_names = random.choices(file_names, k=20)
+
+# 筛选出文件名包含 '02691156' 的文件
+filtered_file_names = [file_name for file_name in file_names if '02691156' in file_name]
+file_names = random.sample(filtered_file_names, min(20, len(filtered_file_names)))
+
+for name in file_names:
+    # file_name = '02691156-1a32f10b20170883663e90eaf6b4ca52'
+    file_name = name
+
+    sam = data_path + file_name
+
+    input = torch.from_numpy(np.load(sam))[:, :3]
+    input = _pc_normalize(input).unsqueeze(0)  # 8192 * 3
+    input_vanilla = global_transform(input, 32)  ## good pose for visualization
+
+    # no corruption.
+    idx = farthest_point_sample(input_vanilla, 2048)  # input BNC
+    points = index_points(input_vanilla, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'nocorruption-' + file_name.replace('.npy', '')
+    save_name = file_path + 'corruption/' + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual no corruption successfully. Points shape: %s' % (str(points.cpu().numpy().shape),))
+
+    # corrupt_reflection
+    input = np.array(input_vanilla.squeeze(0))
+    input = corrupt_reflection(input, 3)
+    points = random_sample(input, 1024)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'reflection-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual reflection successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_rotation
+    input = np.array(input_vanilla.squeeze(0))
+    input = corrupt_rotate(input, 3)
+    points = random_sample(input, 1024)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'rotation-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual rotation successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_scale
+    input = np.array(input_vanilla.squeeze(0))
+    input = corrupt_scale(input, 3)
+    points = random_sample(input, 1024)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'scale-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual scale successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_shear
+    input = np.array(input_vanilla.squeeze(0))
+    input = corrupt_shear(input, 3)
+    points = random_sample(input, 1024)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'shear-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual shear successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_translate
+    input = np.array(input_vanilla.squeeze(0))
+    input = corrupt_tranlate(input, 3)
+    points = random_sample(input, 1024)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'translate-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual translate successfully. Points shape: %s' % (str(points.shape),))
 
     # corrupt_affinity
-    # affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
-    # affine_function = {
-    #     'translate': corrupt_tranlate,
-    #     'scale': corrupt_scale,
-    #     'rotate': corrupt_rotate,
-    #     'reflection': corrupt_reflection,
-    #     'shear': corrupt_shear,
-    # }
-    # number = random.choice([1, 2])
-    # adopted_affine = random.sample(affine_corruptions, number)
-    # input = np.array(input_vanilla.squeeze(0))
-    # for affine_corruption_item in adopted_affine:
-    #     input = affine_function[affine_corruption_item](input, 2)
-    # points = random_sample(input, 2048)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'affinity-' + file_name.replace('.npy', '')
-    # save_name = file_path + 'corruption/' + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual affinity successfully. Points shape: %s' % (str(points.shape),))
+    affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
+    affine_function = {
+        'translate': corrupt_tranlate,
+        'scale': corrupt_scale,
+        'rotate': corrupt_rotate,
+        'reflection': corrupt_reflection,
+        'shear': corrupt_shear,
+    }
+    number = random.choice([1, 2])
+    adopted_affine = random.sample(affine_corruptions, number)
+    input = np.array(input_vanilla.squeeze(0))
+    for affine_corruption_item in adopted_affine:
+        input = affine_function[affine_corruption_item](input, 2)
+    points = random_sample(input, 2048)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'affinity-' + file_name.replace('.npy', '')
+    save_name = file_path + 'corruption/' + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual affinity successfully. Points shape: %s' % (str(points.shape),))
 
-    # # corrupt_dropout_global
-    # input = np.array(input_vanilla)
-    # input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-    # points = corrupt_add_global(input, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'add_global-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual dropout_global successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_add_local
-    # input = np.array(input_vanilla)
-    # input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-    # points = corrupt_add_local(input, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'add_local-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual add_local successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # jitter
-    # input = np.array(input_vanilla.squeeze(0))
-    # input = random_sample(input, 1024)
-    # points = corrupt_jitter(input, 3)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'jitter-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual jitter successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_dropout_local
-    # input = np.array(input_vanilla)
-    # input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-    # points = corrupt_dropout_global(input, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'dropout_global-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual dropout_local successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_dropout_local
-    # input = np.array(input_vanilla)
-    # input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-    # points = corrupt_dropout_local(input, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'dropout_local-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual dropout_local successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # corrupt_cutout
-    # input = np.array(input_vanilla)
-    # input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-    # points = corrupt_cutout(input, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'cut_out-' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual cut_out successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # combine corrupt_affinity add noise
-    # affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
-    # affine_function = {
-    #     'translate': corrupt_tranlate,
-    #     'scale': corrupt_scale,
-    #     'rotate': corrupt_rotate,
-    #     'reflection': corrupt_reflection,
-    #     'shear': corrupt_shear,
-    # }
-    # nonaff_function = {
-    #     'add_global': corrupt_add_global,
-    #     'add_local': corrupt_add_local,
-    #     'dropout_global': corrupt_dropout_global,
-    #     'dropout_local': corrupt_dropout_local,
-    #     'cutout': corrupt_cutout,
-    #     'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
-    # }
-    # nonaff_extra = random.choices(['add_global', 'add_local'])[0]
-    # number = random.choice([1, 2, 3, 4, 5])
-    # adopted_affine = random.sample(affine_corruptions, number)
-    # input = np.array(input_vanilla.squeeze(0))
-    # for affine_corruption_item in adopted_affine:
-    #     input = affine_function[affine_corruption_item](input, 3)
-    # points = random_sample(input, 1024)
-    # points = np.expand_dims(points, axis=0)
-    # points = nonaff_function[nonaff_extra](points, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'comb_affinity-add' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual combination affine + add successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # combine corrupt_affinity drop points
-    # affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
-    # affine_function = {
-    #     'translate': corrupt_tranlate,
-    #     'scale': corrupt_scale,
-    #     'rotate': corrupt_rotate,
-    #     'reflection': corrupt_reflection,
-    #     'shear': corrupt_shear,
-    # }
-    # nonaff_function = {
-    #     'add_global': corrupt_add_global,
-    #     'add_local': corrupt_add_local,
-    #     'dropout_global': corrupt_dropout_global,
-    #     'dropout_local': corrupt_dropout_local,
-    #     'cutout': corrupt_cutout,
-    #     'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
-    # }
-    # nonaff_extra = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
-    # number = random.choice([1, 2, 3, 4, 5])
-    # adopted_affine = random.sample(affine_corruptions, number)
-    # input = np.array(input_vanilla.squeeze(0))
-    # for affine_corruption_item in adopted_affine:
-    #     input = affine_function[affine_corruption_item](input, 3)
-    # points = random_sample(input, 1024)
-    # points = np.expand_dims(points, axis=0)
-    # points = nonaff_function[nonaff_extra](points, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'comb_affinity-drop' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual combination affine + drop successfully. Points shape: %s' % (str(points.shape),))
-    #
-    # # combine corrupt_affinity add + drop points
-    # affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
-    # affine_function = {
-    #     'translate': corrupt_tranlate,
-    #     'scale': corrupt_scale,
-    #     'rotate': corrupt_rotate,
-    #     'reflection': corrupt_reflection,
-    #     'shear': corrupt_shear,
-    # }
-    # nonaff_function = {
-    #     'add_global': corrupt_add_global,
-    #     'add_local': corrupt_add_local,
-    #     'dropout_global': corrupt_dropout_global,
-    #     'dropout_local': corrupt_dropout_local,
-    #     'cutout': corrupt_cutout,
-    #     'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
-    # }
-    # nonaff_extra1 = random.choices(['add_global', 'add_local'])[0]
-    # nonaff_extra2 = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
-    # number = random.choice([1, 2, 3, 4, 5])
-    # adopted_affine = random.sample(affine_corruptions, number)
-    # input = np.array(input_vanilla.squeeze(0))
-    # for affine_corruption_item in adopted_affine:
-    #     input = affine_function[affine_corruption_item](input, 3)
-    # points = random_sample(input, 1024)
-    # points = np.expand_dims(points, axis=0)
-    # points = nonaff_function[nonaff_extra1](points, 3).cpu().numpy()
-    # points = nonaff_function[nonaff_extra2](points, 3).squeeze(0)
-    # # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    # # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    # # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    # d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    # cloud = PyntCloud(pd.DataFrame(data=d))
-    # save_name = 'comb_affinity-add-drop' + file_name
-    # save_name = file_path + save_name + '.ply'
-    # cloud.to_file(save_name)
-    # print('visual combination affine + add + drop successfully. Points shape: %s' % (str(points.shape),))
+    # corrupt_dropout_global
+    input = np.array(input_vanilla)
+    input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+    points = corrupt_add_global(input, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'add_global-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual dropout_global successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_add_local
+    input = np.array(input_vanilla)
+    input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+    points = corrupt_add_local(input, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'add_local-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual add_local successfully. Points shape: %s' % (str(points.shape),))
+
+    # jitter
+    input = np.array(input_vanilla.squeeze(0))
+    input = random_sample(input, 1024)
+    points = corrupt_jitter(input, 3)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'jitter-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual jitter successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_dropout_local
+    input = np.array(input_vanilla)
+    input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+    points = corrupt_dropout_global(input, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'dropout_global-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual dropout_local successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_dropout_local
+    input = np.array(input_vanilla)
+    input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+    points = corrupt_dropout_local(input, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'dropout_local-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual dropout_local successfully. Points shape: %s' % (str(points.shape),))
+
+    # corrupt_cutout
+    input = np.array(input_vanilla)
+    input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+    points = corrupt_cutout(input, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'cut_out-' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual cut_out successfully. Points shape: %s' % (str(points.shape),))
+
+    # combine corrupt_affinity add noise
+    affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
+    affine_function = {
+        'translate': corrupt_tranlate,
+        'scale': corrupt_scale,
+        'rotate': corrupt_rotate,
+        'reflection': corrupt_reflection,
+        'shear': corrupt_shear,
+    }
+    nonaff_function = {
+        'add_global': corrupt_add_global,
+        'add_local': corrupt_add_local,
+        'dropout_global': corrupt_dropout_global,
+        'dropout_local': corrupt_dropout_local,
+        'cutout': corrupt_cutout,
+        'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
+    }
+    nonaff_extra = random.choices(['add_global', 'add_local'])[0]
+    number = random.choice([1, 2, 3, 4, 5])
+    adopted_affine = random.sample(affine_corruptions, number)
+    input = np.array(input_vanilla.squeeze(0))
+    for affine_corruption_item in adopted_affine:
+        input = affine_function[affine_corruption_item](input, 3)
+    points = random_sample(input, 1024)
+    points = np.expand_dims(points, axis=0)
+    points = nonaff_function[nonaff_extra](points, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'comb_affinity-add' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual combination affine + add successfully. Points shape: %s' % (str(points.shape),))
+
+    # combine corrupt_affinity drop points
+    affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
+    affine_function = {
+        'translate': corrupt_tranlate,
+        'scale': corrupt_scale,
+        'rotate': corrupt_rotate,
+        'reflection': corrupt_reflection,
+        'shear': corrupt_shear,
+    }
+    nonaff_function = {
+        'add_global': corrupt_add_global,
+        'add_local': corrupt_add_local,
+        'dropout_global': corrupt_dropout_global,
+        'dropout_local': corrupt_dropout_local,
+        'cutout': corrupt_cutout,
+        'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
+    }
+    nonaff_extra = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
+    number = random.choice([1, 2, 3, 4, 5])
+    adopted_affine = random.sample(affine_corruptions, number)
+    input = np.array(input_vanilla.squeeze(0))
+    for affine_corruption_item in adopted_affine:
+        input = affine_function[affine_corruption_item](input, 3)
+    points = random_sample(input, 1024)
+    points = np.expand_dims(points, axis=0)
+    points = nonaff_function[nonaff_extra](points, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'comb_affinity-drop' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual combination affine + drop successfully. Points shape: %s' % (str(points.shape),))
 
     # combine corrupt_affinity add + drop points
-    #     affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
-    #     affine_function = {
-    #         'translate': corrupt_tranlate,
-    #         'scale': corrupt_scale,
-    #         'rotate': corrupt_rotate,
-    #         'reflection': corrupt_reflection,
-    #         'shear': corrupt_shear,
-    #     }
-    #     nonaff_function = {
-    #         'add_global': corrupt_add_global,
-    #         'add_local': corrupt_add_local,
-    #         'dropout_global': corrupt_dropout_global,
-    #         'dropout_local': corrupt_dropout_local,
-    #         'cutout': corrupt_cutout,
-    #         'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
-    #     }
-    #     nonaff_extra1 = random.choices(['add_global', 'add_local'])[0]
-    #     nonaff_extra2 = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
-    #     number = random.choice([1, 2, 3, 4, 5])
-    #     adopted_affine = random.sample(affine_corruptions, number)
-    #     input = np.array(input_vanilla.squeeze(0))
-    #     for affine_corruption_item in adopted_affine:
-    #         input = affine_function[affine_corruption_item](input, 4)
-    #     points = random_sample(input, 2048)
-    #     points = np.expand_dims(points, axis=0)
-    #     points = nonaff_function[nonaff_extra2](points, 4)
-    #     points = nonaff_function[nonaff_extra1](points, 4).squeeze(0)
-    #     # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-    #     # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-    #     # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-    #     d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-    #     cloud = PyntCloud(pd.DataFrame(data=d))
-    #     save_name = 'comb_affinity-add-drop' + file_name.replace('.npy', '')
-    #     save_name = file_path + 'corruption/' + save_name + '.ply'
-    #     cloud.to_file(save_name)
-    #     print('visual combination affine + drop + add successfully. Points shape: %s' % (str(points.shape),))
+    affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
+    affine_function = {
+        'translate': corrupt_tranlate,
+        'scale': corrupt_scale,
+        'rotate': corrupt_rotate,
+        'reflection': corrupt_reflection,
+        'shear': corrupt_shear,
+    }
+    nonaff_function = {
+        'add_global': corrupt_add_global,
+        'add_local': corrupt_add_local,
+        'dropout_global': corrupt_dropout_global,
+        'dropout_local': corrupt_dropout_local,
+        'cutout': corrupt_cutout,
+        'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
+    }
+    nonaff_extra1 = random.choices(['add_global', 'add_local'])[0]
+    nonaff_extra2 = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
+    number = random.choice([1, 2, 3, 4, 5])
+    adopted_affine = random.sample(affine_corruptions, number)
+    input = np.array(input_vanilla.squeeze(0))
+    for affine_corruption_item in adopted_affine:
+        input = affine_function[affine_corruption_item](input, 3)
+    points = random_sample(input, 1024)
+    points = np.expand_dims(points, axis=0)
+    points = nonaff_function[nonaff_extra1](points, 3).cpu().numpy()
+    points = nonaff_function[nonaff_extra2](points, 3).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'comb_affinity-add-drop' + file_name
+    save_name = file_path + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual combination affine + add + drop successfully. Points shape: %s' % (str(points.shape),))
 
-file_name = '02691156-1a32f10b20170883663e90eaf6b4ca52.npy'
-sam = data_path + file_name
-input = torch.from_numpy(np.load(sam))[:, :3]
-input = _pc_normalize(input).unsqueeze(0)  # 8192 * 3
-input_vanilla = global_transform(input, 32)  ## good pose for visualization
-
-# # combine corrupt_affinity add + drop points
-# affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
-# affine_function = {
-#     'translate': corrupt_tranlate,
-#     'scale': corrupt_scale,
-#     'rotate': corrupt_rotate,
-#     'reflection': corrupt_reflection,
-#     'shear': corrupt_shear,
-# }
-# nonaff_function = {
-#     'add_global': corrupt_add_global,
-#     'add_local': corrupt_add_local,
-#     'dropout_global': corrupt_dropout_global,
-#     'dropout_local': corrupt_dropout_local,
-#     'cutout': corrupt_cutout,
-#     'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
-# }
-# nonaff_extra1 = random.choices(['add_global', 'add_local'])[0]
-# nonaff_extra2 = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
-# number = random.choice([1, 2, 3, 4, 5])
-# adopted_affine = random.sample(affine_corruptions, number)
-# input = np.array(input_vanilla.squeeze(0))
-# for affine_corruption_item in adopted_affine:
-#     input = affine_function[affine_corruption_item](input, 0)
-# points = random_sample(input, 1024)
-# points = np.expand_dims(points, axis=0)
-# points = nonaff_function[nonaff_extra2](points, 0)
-# points = nonaff_function[nonaff_extra1](points, 0).squeeze(0)
-# # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-# # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-# # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-# d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-# cloud = PyntCloud(pd.DataFrame(data=d))
-# save_name = '0comb_affinity-add-drop' + file_name.replace('.npy', '')
-# save_name = file_path + 'corruption/' + save_name + '.ply'
-# cloud.to_file(save_name)
-# print('visual combination affine + drop + add successfully. Points shape: %s' % (str(points.shape),))
-
-input = np.array(input_vanilla.squeeze(0))
-points = random_sample(input, 256)
-d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-cloud = PyntCloud(pd.DataFrame(data=d))
-save_name = 'reconstruction_256p' + file_name.replace('.npy', '')
-save_name = file_path + 'corruption/' + save_name + '.ply'
-cloud.to_file(save_name)
-print('visual reconstruction 256 points successfully. Points shape: %s' % (str(points.shape),))
+    # combine corrupt_affinity add + drop points
+    affine_corruptions = ['translate', 'scale', 'rotate', 'reflection', 'shear']
+    affine_function = {
+        'translate': corrupt_tranlate,
+        'scale': corrupt_scale,
+        'rotate': corrupt_rotate,
+        'reflection': corrupt_reflection,
+        'shear': corrupt_shear,
+    }
+    nonaff_function = {
+        'add_global': corrupt_add_global,
+        'add_local': corrupt_add_local,
+        'dropout_global': corrupt_dropout_global,
+        'dropout_local': corrupt_dropout_local,
+        'cutout': corrupt_cutout,
+        'None': lambda point_cr, extra_level: point_cr  # 如果不需要操作，直接返回原数据
+    }
+    nonaff_extra1 = random.choices(['add_global', 'add_local'])[0]
+    nonaff_extra2 = random.choices(['dropout_global', 'dropout_local', 'cutout'])[0]
+    number = random.choice([1, 2, 3, 4, 5])
+    adopted_affine = random.sample(affine_corruptions, number)
+    input = np.array(input_vanilla.squeeze(0))
+    for affine_corruption_item in adopted_affine:
+        input = affine_function[affine_corruption_item](input, 4)
+    points = random_sample(input, 2048)
+    points = np.expand_dims(points, axis=0)
+    points = nonaff_function[nonaff_extra2](points, 4)
+    points = nonaff_function[nonaff_extra1](points, 4).squeeze(0)
+    # input_unsquee = torch.from_numpy(input).unsqueeze(0)
+    # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+    # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+    d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+    cloud = PyntCloud(pd.DataFrame(data=d))
+    save_name = 'comb_affinity-add-drop' + file_name.replace('.npy', '')
+    save_name = file_path + 'corruption/' + save_name + '.ply'
+    cloud.to_file(save_name)
+    print('visual combination affine + drop + add successfully. Points shape: %s' % (str(points.shape),))

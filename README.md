@@ -1,5 +1,5 @@
 # CCPoint: Contrasting Corrupted Point Clouds for Self-Supervised Representation Learning
-This repository contains the official code release of **CCPoint: Contrasting Corrupted Point Clouds for Self-Supervised Representation Learning** (IEEE TMM 2025).
+This repository contains the official code release of [**CCPoint: Contrasting Corrupted Point Clouds for Self-Supervised Representation Learning**](https://ieeexplore.ieee.org/document/11153700) (IEEE TMM 2025).
 
 ## Introduction
 In this work, we propose a novel SSL paradigm for point cloud representation learning, called CCPoint, which incorporates a novel form of data corruption as a negative augmentation strategy.
@@ -52,7 +52,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --exp exp --batch_size 64 --world_s
 --corrupt_extra random_masking --extra_level 4 --model dgcnn_part
 ```
 
-Note: Use 4x NVIDIA 3090Ti GPUs for optimal performance due to random augmentation strategies. Both **random mixing** and **masking** prove to be effective techniques.
+Note: Use 4x NVIDIA 3090Ti GPUs for optimal performance due to **random** augmentation strategies. Both **random mixing** and **masking** prove to be effective techniques.
 
 ## 4. Downstream Tasks
 
@@ -89,7 +89,13 @@ CUDA_VISIBLE_DEVICES=0 python test.py
 ## Citation
 If you entrust our work with value, please consider giving a star ⭐ and citation:
 ```
-@article{}
+@article{xiao2025ccpoint,
+  title={CCPoint: Contrasting Corrupted Point Clouds for Self-Supervised Representation Learning},
+  author={Xiao, Xiaoyang and Du, Shaoyi and Tian, Zhiqiang and Liu, Meiqin and Zheng, Xinhu},
+  journal={IEEE Transactions on Multimedia},
+  year={2025},
+  publisher={IEEE}
+}
 ```
 
 ## Acknowledgements

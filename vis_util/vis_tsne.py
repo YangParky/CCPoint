@@ -100,9 +100,9 @@ device = torch.device('cuda')
 
 save_path = './output/visualization/tsne/'
 
-resume_path010 = './output/pretrain/dgcnn_cls/tab11/prid2/models/checkpoint_10.pth.tar'
-resume_path050 = './output/pretrain/dgcnn_cls/tab11/prid2/models/checkpoint_50.pth.tar'
-# resume_path100 = './output/pretrain/dgcnn_cls/tab8/exp6/models/checkpoint_best.pth.tar'
+resume_path010 = './output/pretrain/dgcnn_cls/tab11/models/checkpoint_10.pth.tar'
+resume_path050 = './output/pretrain/dgcnn_cls/tab11/models/checkpoint_50.pth.tar'
+resume_path100 = './output/pretrain/dgcnn_cls/tab11/models/checkpoint_best.pth.tar'
 
 test_val_loader = DataLoader(ModelNet40SVM(partition='test', num_points=1024, cat=10),
                              batch_size=32,
@@ -126,17 +126,17 @@ model_050 = CCPoint(args, backbone=DGCNN_cls(args)).to(device)
 # del checkpoint
 print("Loaded checkpoint '{}' successfully.".format(resume_path050))
 
-# model_100 = CCPoint(args, backbone=DGCNN_cls(args)).to(device)
-# checkpoint = torch.load(resume_path100, map_location='cpu')['point_model']
-# checkpoint = {key.replace('module.', ''): value for key, value in checkpoint.items()}
-# model_100.load_state_dict(checkpoint, strict=True)
-# del checkpoint
-# print("Loaded checkpoint '{}' successfully.".format(resume_path100))
+model_100 = CCPoint(args, backbone=DGCNN_cls(args)).to(device)
+checkpoint = torch.load(resume_path100, map_location='cpu')['point_model']
+checkpoint = {key.replace('module.', ''): value for key, value in checkpoint.items()}
+model_100.load_state_dict(checkpoint, strict=True)
+del checkpoint
+print("Loaded checkpoint '{}' successfully.".format(resume_path100))
 
 # model_000.eval()
 model_010.eval()
 model_050.eval()
-# model_100.eval()
+model_100.eval()
 
 feats_test_000 = []
 feats_test_010 = []
@@ -155,7 +155,7 @@ for i, (data, label) in enumerate(test_val_loader):
         # feats000 = model_000(data)[0]
         feats010 = model_010(data)[0]
         feats050 = model_050(data)[0]
-        # feats100 = model_100(data)[0]
+        feats100 = model_100(data)[0]
 
     # for feat in feats000:
     #     feats_test_000.append(feat.cpu().numpy())
@@ -166,23 +166,23 @@ for i, (data, label) in enumerate(test_val_loader):
     for feat in feats050:
         feats_test_050.append(feat.cpu().numpy())
 
-    # for feat in feats100:
-    #     feats_test_100.append(feat.cpu().numpy())
+    for feat in feats100:
+        feats_test_100.append(feat.cpu().numpy())
 
     # labels_test_000 += labels
     labels_test_010 += labels
     labels_test_050 += labels
-    # labels_test_100 += labels
+    labels_test_100 += labels
 
 # feats_test_000 = np.array(feats_test_000)
 feats_test_010 = np.array(feats_test_010)
 feats_test_050 = np.array(feats_test_050)
-# feats_test_100 = np.array(feats_test_100)
+feats_test_100 = np.array(feats_test_100)
 
 # feats_test_000_embedded = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(feats_test_000)
 feats_test_010_embedded = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(feats_test_010)
 feats_test_050_embedded = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(feats_test_050)
-# feats_test_100_embedded = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(feats_test_100)
+feats_test_100_embedded = TSNE(n_components=2, learning_rate='auto', init='random').fit_transform(feats_test_100)
 
 # 创建自定义颜色映射
 label_values = [1, 2, 8, 12, 14, 22, 23, 30, 33, 35]
@@ -253,41 +253,41 @@ plt.show()
 res_fig = mn_ax.get_figure()
 res_fig.savefig('./output/visualization/tsne/model_050.png', dpi=300)
 
-# sns.set_style('whitegrid')
-# df_100 = pd.DataFrame()
-# # "y" represents the number of samples
-# df_100['label'] = labels_test_100
-# df_100['axis-0'] = feats_test_100_embedded[:, 0]
-# df_100['axis-1'] = feats_test_100_embedded[:, 1]
-# figsize = (6, 5)
-# fig, ax = plt.subplots(figsize=figsize)
-# mn_ax = sns.scatterplot(ax=ax, x="axis-0", y="axis-1", hue=df_100.label.tolist(),
-#                         # palette=sns.color_palette(palette='Set2', n_colors=40),
-#                         # s=50,
-#                         # palette=sns.color_palette(palette="hls", n_colors=10),
-#                         palette=color_map,
-#                         data=df_100,
-#                         legend=False)
-# mn_ax.set(xlabel=None)
-# mn_ax.set(ylabel=None)
-# plt.grid(False)
-# plt.show()
-# res_fig = mn_ax.get_figure()
-# res_fig.savefig('./output/visualization/tsne/model_100.png', dpi=300)
+sns.set_style('whitegrid')
+df_100 = pd.DataFrame()
+# "y" represents the number of samples
+df_100['label'] = labels_test_100
+df_100['axis-0'] = feats_test_100_embedded[:, 0]
+df_100['axis-1'] = feats_test_100_embedded[:, 1]
+figsize = (6, 5)
+fig, ax = plt.subplots(figsize=figsize)
+mn_ax = sns.scatterplot(ax=ax, x="axis-0", y="axis-1", hue=df_100.label.tolist(),
+                        # palette=sns.color_palette(palette='Set2', n_colors=40),
+                        # s=50,
+                        # palette=sns.color_palette(palette="hls", n_colors=10),
+                        palette=color_map,
+                        data=df_100,
+                        legend=False)
+mn_ax.set(xlabel=None)
+mn_ax.set(ylabel=None)
+plt.grid(False)
+plt.show()
+res_fig = mn_ax.get_figure()
+res_fig.savefig('./output/visualization/tsne/model_100.png', dpi=300)
 
-# # 创建颜色条
-# cmap = mcolors.ListedColormap(colors)
-# bounds = label_values
-# norm = mcolors.BoundaryNorm(bounds, cmap.N)
-#
-# # 创建一个新的图形和轴
-# fig_legend, ax_legend = plt.subplots(figsize=(1, 5))
-#
-# # 绘制圆点图例
-# for i, (label_name, label_value) in enumerate(zip(label_names, label_values)):
-#     color = color_map[label_value]
-#     ax_legend.scatter([0], [len(label_names) - 1 - i], color=color, label=label_name, s=100)
-#     ax_legend.text(0.05, len(label_names) - 1 - i, label_name, verticalalignment='center')
-# ax_legend.axis('off')
-# fig_legend.savefig('./output/visualization/tsne/legend.png', dpi=300, bbox_inches='tight')
-# plt.show()
+# 创建颜色条
+cmap = mcolors.ListedColormap(colors)
+bounds = label_values
+norm = mcolors.BoundaryNorm(bounds, cmap.N)
+
+# 创建一个新的图形和轴
+fig_legend, ax_legend = plt.subplots(figsize=(1, 5))
+
+# 绘制圆点图例
+for i, (label_name, label_value) in enumerate(zip(label_names, label_values)):
+    color = color_map[label_value]
+    ax_legend.scatter([0], [len(label_names) - 1 - i], color=color, label=label_name, s=100)
+    ax_legend.text(0.05, len(label_names) - 1 - i, label_name, verticalalignment='center')
+ax_legend.axis('off')
+fig_legend.savefig('./output/visualization/tsne/legend.png', dpi=300, bbox_inches='tight')
+plt.show()

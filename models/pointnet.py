@@ -7,6 +7,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
+from torchvision.models import resnet50
+import torch.nn.init as init
 
 
 class STN3d(nn.Module):

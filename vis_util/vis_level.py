@@ -364,7 +364,7 @@ def corrupt_cutout(pointcloud, level=4):
     return torch.from_numpy(pointcloud_clone).float()
 
 
-file_path = '/mnt/sda/xxy/Project/CCPoint/output/visualization/'
+file_path = './output/visualization/'
 file_name = '02691156-1a32f10b20170883663e90eaf6b4ca52'
 file_name2 = '02876657-e23f62bb4794ee6a7fdd0518ed16e820'
 file_name3 = '02992529-8fcae817c180d5224208dfa1c5fa1065'
@@ -405,19 +405,19 @@ save_name = file_path + 'level/' + save_name + '.ply'
 cloud.to_file(save_name)
 print('visual affinity successfully. Points shape: %s' % (str(points.shape),))
 
-# # corrupt_dropout_global
-# input = np.array(input_vanilla)
-# input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-# points = corrupt_add_global(input, 3).squeeze(0)
-# # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-# # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-# # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-# d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-# cloud = PyntCloud(pd.DataFrame(data=d))
-# save_name = 'add_global-' + file_name
-# save_name = file_path + save_name + '.ply'
-# cloud.to_file(save_name)
-# print('visual add_global successfully. Points shape: %s' % (str(points.shape),))
+# corrupt_dropout_global
+input = np.array(input_vanilla)
+input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+points = corrupt_add_global(input, 3).squeeze(0)
+# input_unsquee = torch.from_numpy(input).unsqueeze(0)
+# idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+# points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+cloud = PyntCloud(pd.DataFrame(data=d))
+save_name = 'add_global-' + file_name
+save_name = file_path + save_name + '.ply'
+cloud.to_file(save_name)
+print('visual add_global successfully. Points shape: %s' % (str(points.shape),))
 
 # corrupt_add_local
 input = np.array(input_vanilla)
@@ -433,6 +433,7 @@ save_name = file_path + 'level/' + save_name + '.ply'
 cloud.to_file(save_name)
 print('visual add_local successfully. Points shape: %s' % (str(points.shape),))
 
+
 # corrupt_dropout_global
 input = np.array(input_vanilla)
 input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
@@ -447,16 +448,16 @@ save_name = file_path + 'level/' + save_name + '.ply'
 cloud.to_file(save_name)
 print('visual dropout_global successfully. Points shape: %s' % (str(points.shape),))
 
-# # corrupt_dropout_local
-# input = np.array(input_vanilla)
-# input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
-# points = corrupt_dropout_local(input, 3).squeeze(0)
-# # input_unsquee = torch.from_numpy(input).unsqueeze(0)
-# # idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
-# # points = index_points(input_unsquee, idx)[0]  # [B, S, C]
-# d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
-# cloud = PyntCloud(pd.DataFrame(data=d))
-# save_name = 'dropout_local-' + file_name
-# save_name = file_path + save_name + '.ply'
-# cloud.to_file(save_name)
-# print('visual dropout_local successfully. Points shape: %s' % (str(points.shape),))
+# corrupt_dropout_local
+input = np.array(input_vanilla)
+input = np.expand_dims(random_sample(input.squeeze(0), 1024), axis=0)
+points = corrupt_dropout_local(input, 3).squeeze(0)
+# input_unsquee = torch.from_numpy(input).unsqueeze(0)
+# idx = farthest_point_sample(input_unsquee, 1024)  # input BNC
+# points = index_points(input_unsquee, idx)[0]  # [B, S, C]
+d = {'x': points[:, 0], 'y': points[:, 1], 'z': points[:, 2]}
+cloud = PyntCloud(pd.DataFrame(data=d))
+save_name = 'dropout_local-' + file_name
+save_name = file_path + save_name + '.ply'
+cloud.to_file(save_name)
+print('visual dropout_local successfully. Points shape: %s' % (str(points.shape),))

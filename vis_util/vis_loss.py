@@ -69,7 +69,7 @@ data = {
 
 df = pd.DataFrame(data)
 
-excel_file_path = './output/visualization/loss/results4_2.xlsx'
+excel_file_path = './output/visualization/loss/results.xlsx'
 df.to_excel(excel_file_path, index=False)
 
 print(f"data saved to {excel_file_path}")
