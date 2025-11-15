@@ -32,8 +32,8 @@ def test(rank):
     else:
         raise Exception('Not implemented')
 
-    # model_path = './output/pretrain/dgcnn_cls/tab9/exp6/models/checkpoint_best.pth.tar'
-    model_path = './output/pretrain/dgcnn_cls/tab11/mixing200/models/checkpoint_best.pth.tar'
+    # model_path = './output/pretrain/dgcnn_cls/ccpoint/models/checkpoint_best.pth.tar'
+    model_path = './output/pretrain/dgcnn_clsccpoint/models/checkpoint_best.pth.tar'
 
     map_location = torch.device('cuda:%d' % rank)
 
